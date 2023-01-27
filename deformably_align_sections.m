@@ -4,7 +4,7 @@ clc
 
 %%% PARAMETERS
 sigma=200; %% Width of deformation field - larger: smoother deformation
-
+contrastLevel=10; %% Image contrast level during matching, higher is brighter
 %% paths to utilities + functions
 addpath ./tiff_loading/utilities
 addpath(genpath('./tiff_loading/Fiji.app'));
@@ -46,7 +46,7 @@ affine=0;
 globTform=[eye(2) zeros(2,1);zeros(1,2) 1];
 while notGood==1
     close all
-    imagesc(10*imfuse(I1slice,I2slice_warped,'falsecolor','Scaling','joint','ColorChannels',[1 2 0]));
+    imagesc(contrastLevel*imfuse(I1slice,I2slice_warped,'falsecolor','Scaling','joint','ColorChannels',[1 2 0]));
     title('Click successive pairs of matching landmarks - Chose RED first then GREEN  - right click when done');
     
     [x,y]=getpts;
@@ -99,7 +99,7 @@ end
 I1=I{sliceA};
 I2=I{sliceB};
 
-vfieldTotal=pointDeformerIterative(I2transformed(:,:,8),I1(:,:,1),sigma);
+vfieldTotal=pointDeformerIterative(I2transformed(:,:,end),I1(:,:,1),sigma);
 close all
 
 for i=1:size(I{sliceB},3)
@@ -109,11 +109,11 @@ end
 
 [ax, ~] = tight_subplot(1, 3, [0.01 0.01], 0.1,0.1);
 axes(ax(1));
-imagesc(10*myimfuse(I2(:,:,8),I1(:,:,1)));title('Unregistered');axis equal;axis off;text(100,100,'Unregistered','color','w','FontWeight','bold','FontSize',20);
+imagesc(contrastLevel*myimfuse(I2(:,:,end),I1(:,:,1)));title('Unregistered');axis equal;axis off;text(100,100,'Unregistered','color','w','FontWeight','bold','FontSize',20);
 axes(ax(2))
-imagesc(10*myimfuse(I2transformed(:,:,8),I1(:,:,1)));title('Rigid/Affine');axis equal;axis off;text(100,100,'Rigid/affine','color','w','FontWeight','bold','FontSize',20);
+imagesc(contrastLevel*myimfuse(I2transformed(:,:,end),I1(:,:,1)));title('Rigid/Affine');axis equal;axis off;text(100,100,'Rigid/affine','color','w','FontWeight','bold','FontSize',20);
 axes(ax(3))
-imagesc(10*myimfuse(I2transformed_warped(:,:,8),I1(:,:,1)));title('Deformable');axis equal;axis off;text(100,100,'Deformable','color','w','FontWeight','bold','FontSize',20);
+imagesc(contrastLevel*myimfuse(I2transformed_warped(:,:,end),I1(:,:,1)));title('Deformable');axis equal;axis off;text(100,100,'Deformable','color','w','FontWeight','bold','FontSize',20);
 linkaxes([ax(1) ax(2) ax(3)]);
 set(gcf,'color','w');
 
