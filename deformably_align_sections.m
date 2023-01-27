@@ -99,7 +99,7 @@ end
 I1=I{sliceA};
 I2=I{sliceB};
 
-vfieldTotal=pointDeformerIterative(I2transformed(:,:,end),I1(:,:,1),sigma,contrastLevels);
+vfieldTotal=pointDeformerIterative(I2transformed(:,:,end),I1(:,:,1),sigma,contrastLevel);
 close all
 
 for i=1:size(I{sliceB},3)
