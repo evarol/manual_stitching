@@ -4,7 +4,7 @@ clc
 
 %%% PARAMETERS
 sigma=200; %% Width of deformation field - larger: smoother deformation
-contrastLevel=10; %% Image contrast level during matching, higher is brighter
+contrastLevel=5; %% Image contrast level during matching, higher is brighter
 %% paths to utilities + functions
 addpath ./tiff_loading/utilities
 addpath(genpath('./tiff_loading/Fiji.app'));
@@ -99,7 +99,7 @@ end
 I1=I{sliceA};
 I2=I{sliceB};
 
-vfieldTotal=pointDeformerIterative(I2transformed(:,:,end),I1(:,:,1),sigma);
+vfieldTotal=pointDeformerIterative(I2transformed(:,:,end),I1(:,:,1),sigma,contrastLevels);
 close all
 
 for i=1:size(I{sliceB},3)
