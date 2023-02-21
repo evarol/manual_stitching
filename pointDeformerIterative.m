@@ -24,7 +24,7 @@ while notDone==1
     
     
     vfield=repmat(zeros(size(moving)),[1 1 2]);
-    
+    if ~isempty(x)
     for i=1:size(moving_matches,1)
         vfield(moving_matches(i,2),moving_matches(i,1),2)=fixed_matches(i,2)-moving_matches(i,2);
         vfield(moving_matches(i,2),moving_matches(i,1),1)=fixed_matches(i,1)-moving_matches(i,1);
@@ -57,7 +57,7 @@ while notDone==1
             moving_matches_moved(i,d)=moving_matches(i,d)+vfield(moving_matches(i,2),moving_matches(i,1),d)*step(d);
         end
     end
-    
+    end
     imagesc(contrastLevel*myimfuse(moving_warped,fixed));axis equal;axis off
     done=input('Done?(1) Add more?(0), Start Over(2)');
     if done==1
